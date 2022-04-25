@@ -112,8 +112,7 @@ def eval_func(func_path, request):
         module = import_module(module_str)
         result = getattr(module, func_str)
         if callable(result):
-            args, varargs, keywords, defaults = inspect.getargspec(result)
-            if 'request' in args:
+            if 'request' in inspect.getfullargspec(result).args:
                 result = result(request)
             else:
                 result = result()
